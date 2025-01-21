@@ -1,25 +1,39 @@
-# ons-template
+# blaise-ingest
 
-This repository attempts to demonstrate how colleagues can implement the [GitHub Policy](https://officenationalstatistics.sharepoint.com/sites/ONS_DDaT_Communities/Software%20Engineering%20Policies/Draft_Sub_Policies/GitHub%20Usage%20Policy.docx) (Link to internal site, not accessible externally) created by ONS' Software Engineering Community.
+Python cloud function that's triggered when a zip file is uploaded (object finalized) to the environments ingest bucket.
 
-## Contents
-* [How to use this template](#post-clone-steps)
+Call the REST API endpoint with the appropriate parameters so that it processes the file (download, extract, merge).
 
-## Post-Clone Steps
-### Repository Settings
-Familiarise yourself with the [ONS GitHub Policy](../../wiki) and ensure your repository is compliant with the policy.
+Be defensive, only process zip files, check the corresponding questionnaire is deployed to the environment first, the REST API may already do this? check...
 
-Few key points to note are:
+Check the REST API deletes the zip after it's been processed...
 
-- **[Branch Protection](https://github.com/ONSdigital/ons-template/wiki/5.7-Branch-Protection-rules)**: Ensure
-  the `main` or any other primary branch
-  is protected.
-- **[Signed Commits](https://github.com/ONSdigital/ons-template/wiki/5.8-Signed-Commits)**: Use GPG keys to sign your
-  commits.
-- **[Security Alerts](https://github.com/ONSdigital/ons-template/wiki/6.2-Security)**: Make use of Secret scanning and
-  Dependabot alerts.
-- **[PIRR](https://github.com/ONSdigital/ons-template/wiki/4.2-Private-Internal-Repository-Information)**: If not
-  public then ensure a PIRR.md is documented.
+##Local Setup
 
-## Contributing
-Please see [CONTRIBUTING.md](CONTRIBUTING.md)
+Clone the project locally:
+
+```
+git clone https://github.com/ONSdigital/blaise-ingest.git 
+```
+
+Install poetry:
+```
+pip install poetry
+```
+
+Run poetry install
+```
+poetry install
+```
+
+##Using Poetry
+``` make format ``` will format your code to make it pretty which is the same as ```poetry run isort .```.
+
+```make lint``` checks your coding standards and ```make test``` will run all tests.
+
+###Troubleshooting
+
+To give you the path to python for your virtual env run:
+```
+echo "$(poetry env info | grep Path | awk '{print $2}')/bin/python"
+```
