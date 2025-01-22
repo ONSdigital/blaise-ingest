@@ -6,7 +6,6 @@ import blaise_restapi
 from appconfig.config import Config
 from utilities.custom_exceptions import BlaiseError
 from utilities.logging import function_name
-from utilities.regex import extract_username_from_case_id
 
 
 class BlaiseService:
@@ -64,7 +63,7 @@ class BlaiseService:
             logging.error(error_message)
             raise BlaiseError(error_message)
 
-    def get_ingest(self, server_park: str, questionnaire_name: str): # TODO: stuff
+    def get_ingest(self, server_park: str, questionnaire_name: str):  # TODO: stuff
         try:
             result = self.restapi_client.get_ingest(server_park, questionnaire_name)
             logging.info(f"Got ingest from server park {server_park}: {result}")
