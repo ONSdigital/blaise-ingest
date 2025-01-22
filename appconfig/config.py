@@ -23,5 +23,4 @@ class Config:
     def log(self):
         print(f"Configuration: Project ID: {self.project_id}")
         print(f"Configuration: Topic Name: {self.topic_name}")
-        print(f"Configuration: ON-PREM-SUBFOLDER: {self.on_prem_subfolder}")
         print(f"Configuration: Env: {self.env}")

@@ -20,22 +20,18 @@ class ValidationService:
 
     def get_valid_request_values_for_ingest_service(
         self, request: flask.request
-    ) -> tuple[str, str]:
+    ) -> tuple[str, str, str]:
         self.validate_request_is_json(request)
         self.validate_request_values_are_not_empty()
         self.validate_questionnaire_name()
         self.validate_role()
 
-        return self.request_json["questionnaire_name"], self.request_json["role"]
+        return (self.request_json["serverParkName"],
+                self.request_json["questionnaireName"],
+                self.request_json["tempFilePath"])
 
-    def get_valid_request_values_for_reissue_new_donor_case(
-        self, request: flask.request
-    ) -> tuple[str, str]:
-        self.validate_request_is_json(request)
-        self.validate_request_values_are_not_empty_for_reissue_new_donor_case()
-        self.validate_questionnaire_name()
-
-        return self.request_json["questionnaire_name"], self.request_json["user"]
+    # IngestDataDto ingestDataDto, string serverParkName, string questionnaireName,
+    #             string tempFilePath)
 
     def validate_request_is_json(self, request):
         try:
