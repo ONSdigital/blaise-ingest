@@ -16,14 +16,17 @@ def md5hash_to_md5sum(md5hash):
 
 
 def get_questionnaire_name(zip_filename):
-    match = re.search(r"^([a-zA-Z]+)(\d{4})(?:edit)?\.zip", zip_filename)
+    match = re.search(r"^([a-zA-Z]+)(\d{4})([a-zA-Z]*)(?:edit)?\.zip", zip_filename)
     if match:
-        survey, year_month = match.groups()
-        questionnaire_name = survey + year_month
+        survey, year_month, survey_version = match.groups()
+        questionnaire_name = survey + year_month + survey_version
         return f"{questionnaire_name}"
     else:
         return None
 
+
+result = get_questionnaire_name("IPS2501A.zip")
+print(result)
 
 class InvalidFileExtension(Exception):
     pass
