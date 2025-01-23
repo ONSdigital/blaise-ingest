@@ -24,10 +24,6 @@ def get_questionnaire_name(zip_filename):
     else:
         return None
 
-
-result = get_questionnaire_name("IPS2501A.zip")
-print(result)
-
 class InvalidFileExtension(Exception):
     pass
 
