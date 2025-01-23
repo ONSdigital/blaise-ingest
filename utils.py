@@ -1,7 +1,7 @@
 import base64
 import binascii
-
-import blaise_dds
+import datetime
+import re
 
 
 def log_event(event):
@@ -15,17 +15,14 @@ def md5hash_to_md5sum(md5hash):
     return str(encoded_hash, "utf-8")
 
 
-def size_in_megabytes(size_in_bytes):
-    return "{:.6f}".format(int(size_in_bytes) / 1000000)
-
-
-def update_data_delivery_state(event, state, error=None):
-    dds_client = blaise_dds.Client(blaise_dds.Config.from_env())
-    try:
-        dds_client.update_state(event["name"], state, error)
-    except Exception as err:
-        print(f"failed to update dds state: {err}")
-    return
+def get_questionnaire_name(zip_filename):
+    match = re.search(r"^([a-zA-Z]+)(\d{4})(?:edit)?\.zip", zip_filename)
+    if match:
+        survey, year_month = match.groups()
+        questionnaire_name = survey + year_month
+        return f"{questionnaire_name}"
+    else:
+        return None
 
 
 class InvalidFileExtension(Exception):

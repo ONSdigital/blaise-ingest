@@ -1,11 +1,9 @@
 import logging
-import flask
 
+import utils
 from services.ingest_service import IngestService
 from services.validation_service import ValidationService
 from appconfig.config import Config
-from services.guid_service import GUIDService
-from services.user_service import UserService
 from services.blaise_service import BlaiseService
 from utilities.logging import setup_logger
 from utilities.custom_exceptions import (
@@ -15,7 +13,7 @@ from utilities.custom_exceptions import (
     QuestionnaireNotFound,
     RequestError,
     UsersError,
-    UsersWithRoleNotFound, IngestError,
+    IngestError,
 )
 from google.cloud import storage
 
@@ -56,19 +54,23 @@ def process_zip_file(data, context):
         validation_service.validate_config(blaise_config)
         blaise_server_park = blaise_config.blaise_server_park
 
+        questionnaire_name = utils.get_questionnaire_name(file_name)
+
         # Blaise Handler TODO: Get questionnaire_name from somewhere and validate it exists
-        # validation_service.validate_questionnaire_exists(
-        #     questionnaire_name, blaise_config
-        # )
-        questionnaire_name = file['questionnaire']
+        validation_service.validate_questionnaire_exists(
+            questionnaire_name, blaise_config
+        )
 
         # Ingest Handler
         blaise_service = BlaiseService(blaise_config)
         ingest_service = IngestService(blaise_service)
-        ingest_service.ingest(blaise_server_park, questionnaire_name)
 
+        logging.info(f"Calling Ingest Service with server park: {blaise_server_park} and questionnaire name: {questionnaire_name}")
+        ingest_service.ingest(blaise_server_park, questionnaire_name)
         logging.info("Finished Running Cloud Function - 'ingest data'")
+
         return f"Successfully ingested file from bucket", 200
+
     except (RequestError, AttributeError, ValueError, ConfigError) as e:
         error_message = f"Error occurred during Ingest: {e}"
         logging.error(error_message)
