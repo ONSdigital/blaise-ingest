@@ -24,14 +24,10 @@ class ValidationService:
         self.validate_request_is_json(request)
         self.validate_request_values_are_not_empty()
         self.validate_questionnaire_name()
-        self.validate_role()
 
         return (self.request_json["serverParkName"],
                 self.request_json["questionnaireName"],
                 self.request_json["tempFilePath"])
-
-    # IngestDataDto ingestDataDto, string serverParkName, string questionnaireName,
-    #             string tempFilePath)
 
     def validate_request_is_json(self, request):
         try:
@@ -47,29 +43,13 @@ class ValidationService:
     def validate_request_values_are_not_empty(self):
         missing_values = []
         questionnaire_name = self.request_json["questionnaire_name"]
-        role = self.request_json["role"]
+        server_park = self.request_json["server_park"]
 
         if questionnaire_name is None or questionnaire_name == "":
             missing_values.append("questionnaire_name")
 
-        if role is None or role == "":
-            missing_values.append("role")
-
-        if missing_values:
-            error_message = f"Missing required values from request: {missing_values}"
-            logging.error(error_message)
-            raise RequestError(error_message)
-
-    def validate_request_values_are_not_empty_for_ingest_service(self):
-        missing_values = []
-        questionnaire_name = self.request_json["questionnaire_name"]
-        user = self.request_json["user"]
-
-        if questionnaire_name is None or questionnaire_name == "":
-            missing_values.append("questionnaire_name")
-
-        if user is None or user == "":
-            missing_values.append("user")
+        if server_park is None or server_park == "":
+            missing_values.append("server_park")
 
         if missing_values:
             error_message = f"Missing required values from request: {missing_values}"
@@ -84,16 +64,6 @@ class ValidationService:
             error_message = (
                 f"{self.request_json['questionnaire_name']} is not a valid questionnaire name format. "
                 "Questionnaire name must start with 3 letters, followed by 4 numbers"
-            )
-            logging.error(error_message)
-            raise RequestError(error_message)
-
-    def validate_role(self):
-        valid_roles = ["IPS Manager", "IPS Field Interviewer", "IPS Pilot Interviewer"]
-        if self.request_json["role"] not in valid_roles:
-            error_message = (
-                f"{self.request_json['role']} is not a valid role. "
-                f"Please choose one of the following roles: {valid_roles}"
             )
             logging.error(error_message)
             raise RequestError(error_message)
@@ -127,10 +97,3 @@ class ValidationService:
             )
             logging.error(error_message)
             raise BlaiseError(error_message)
-
-    @staticmethod
-    def validate_users_with_role_exist(users: list, role: str):
-        if not users:
-            error_message = f"No users found with role '{role}'"
-            logging.error(error_message)
-            raise UsersWithRoleNotFound(error_message)

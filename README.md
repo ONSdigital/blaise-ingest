@@ -37,3 +37,8 @@ To give you the path to python for your virtual env run:
 ```
 echo "$(poetry env info | grep Path | awk '{print $2}')/bin/python"
 ```
+
+Run unit tests:
+```shell
+poetry run python -m pytest
+```
