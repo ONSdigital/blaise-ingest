@@ -1,8 +1,10 @@
 import logging
+import os
 
 from google.cloud import storage
 
 import utils
+from dotenv import load_dotenv
 from appconfig.config import Config
 from services.blaise_service import BlaiseService
 from services.validation_service import ValidationService
@@ -88,5 +90,15 @@ def process_zip_file(data):
         return error_message, 500
 
 
+if os.path.isfile("./.env"):
+    print("Loading environment variables from dotenv file")
+    load_dotenv()
+
 # Testing
-process_zip_file()
+if __name__ == "__main__":
+    process_zip_file(
+        {
+            "bucket": "ons-blaise-v2-dev-rr3-ingest",
+            "name": "IPS2501A.zip"
+        }
+    )

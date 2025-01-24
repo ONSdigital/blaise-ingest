@@ -42,3 +42,15 @@ Run unit tests:
 ```shell
 poetry run python -m pytest
 ```
+
+
+### Running Locally
+
+Run the following command in a terminal
+
+gcloud config set project <project_id>
+gcloud compute start-iap-tunnel restapi-1 80 --local-host-port=localhost:8011
+
+
+export BLAISE_API_URL="localhost:8011"
+export BLAISE_SERVER_PARK="gusty"

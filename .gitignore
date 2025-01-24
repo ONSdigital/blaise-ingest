@@ -1,3 +1,13 @@
 # VS Code
 .vscode
 .DS_Store
+.env
+/requirements.txt
+/venv/
+/app.yaml
+.pytest_cache
+/.idea/
+/.coverage
+__pycache__
+/tmp/
+.python-version
