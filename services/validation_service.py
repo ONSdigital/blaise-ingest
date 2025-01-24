@@ -5,12 +5,7 @@ import blaise_restapi
 import flask
 
 from appconfig.config import Config
-from utilities.custom_exceptions import (
-    BlaiseError,
-    ConfigError,
-    RequestError,
-    UsersWithRoleNotFound,
-)
+from utilities.custom_exceptions import BlaiseError, ConfigError, RequestError
 from utilities.logging import function_name
 
 
@@ -25,9 +20,11 @@ class ValidationService:
         self.validate_request_values_are_not_empty()
         self.validate_questionnaire_name()
 
-        return (self.request_json["serverParkName"],
-                self.request_json["questionnaireName"],
-                self.request_json["tempFilePath"])
+        return (
+            self.request_json["serverParkName"],
+            self.request_json["questionnaireName"],
+            self.request_json["tempFilePath"],
+        )
 
     def validate_request_is_json(self, request):
         try:
@@ -62,9 +59,11 @@ class ValidationService:
         )
         if not result:
             error_message = (
-                f"{self.request_json['questionnaire_name']} is not a valid questionnaire name format. "
-                "Questionnaire name must start with 3 letters, followed by 4 numbers"
+                f"{self.request_json['questionnaire_name']} is not a valid "
+                + "questionnaire name format. "
+                + "Questionnaire name must start with 3 letters, followed by 4 numbers"
             )
+
             logging.error(error_message)
             raise RequestError(error_message)
 

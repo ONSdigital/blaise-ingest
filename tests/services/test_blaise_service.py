@@ -1,4 +1,3 @@
-import logging
 from unittest import mock
 
 import blaise_restapi
@@ -7,7 +6,6 @@ import pytest
 from appconfig.config import Config
 from services.blaise_service import BlaiseService
 from tests.helpers import get_default_config
-from utilities.custom_exceptions import BlaiseError
 
 
 @pytest.fixture()
@@ -28,14 +26,15 @@ class TestIngest:
         # arrange
         blaise_server_park = "gusty"
         questionnaire_name = "IPS2306a"
-        bucket_file_path = 'IPS2306a.zip'
-        expected_bucket_file_path = {
-            'bucketFilePath': 'IPS2306a.zip'
-        }
+        bucket_file_path = "IPS2306a.zip"
+        expected_bucket_file_path = {"bucketFilePath": "IPS2306a.zip"}
 
         # act
-        blaise_service.get_ingest(blaise_server_park, questionnaire_name, bucket_file_path)
+        blaise_service.get_ingest(
+            blaise_server_park, questionnaire_name, bucket_file_path
+        )
 
         # assert
-        _mock_rest_api_client.assert_called_with(blaise_server_park, questionnaire_name, expected_bucket_file_path)
-
+        _mock_rest_api_client.assert_called_with(
+            blaise_server_park, questionnaire_name, expected_bucket_file_path
+        )

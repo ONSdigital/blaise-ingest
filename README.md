@@ -26,12 +26,12 @@ Run poetry install
 poetry install
 ```
 
-##Using Poetry
+## Using Poetry
 ``` make format ``` will format your code to make it pretty which is the same as ```poetry run isort .```.
 
 ```make lint``` checks your coding standards and ```make test``` will run all tests.
 
-###Troubleshooting
+### Troubleshooting
 
 To give you the path to python for your virtual env run:
 ```

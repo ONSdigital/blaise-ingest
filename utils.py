@@ -1,13 +1,9 @@
-import base64
-import binascii
-import datetime
 import re
 
 
 def log_event(event):
     print(f"Configuration: File name: {event['name']}")
     print(f"Configuration: Bucket Name: {event['bucket']}")
-
 
 
 def get_questionnaire_name(zip_filename):
@@ -18,6 +14,7 @@ def get_questionnaire_name(zip_filename):
         return f"{questionnaire_name}"
     else:
         return None
+
 
 class InvalidFileExtension(Exception):
     pass

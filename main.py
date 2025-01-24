@@ -1,19 +1,20 @@
 import logging
 
+from google.cloud import storage
+
 import utils
-from services.validation_service import ValidationService
 from appconfig.config import Config
 from services.blaise_service import BlaiseService
-from utilities.logging import setup_logger
+from services.validation_service import ValidationService
 from utilities.custom_exceptions import (
     BlaiseError,
     ConfigError,
     GuidError,
+    IngestError,
     RequestError,
     UsersError,
-    IngestError,
 )
-from google.cloud import storage
+from utilities.logging import setup_logger
 
 setup_logger()
 
@@ -24,11 +25,11 @@ def process_zip_file(data):
         validation_service = ValidationService()
 
         file = data
-        bucket_name = file['bucket']
-        file_name = file['name']
+        bucket_name = file["bucket"]
+        file_name = file["name"]
 
         # Only trigger on .zip files
-        if not file_name.endswith('.zip'):
+        if not file_name.endswith(".zip"):
             print(f"File {file_name} is not a zip file, skipping.")
             return
 
@@ -62,14 +63,16 @@ def process_zip_file(data):
         # Ingest Handler
         blaise_service = BlaiseService(blaise_config)
 
-        logging.info(f"Calling Ingest Service with "
-                     f"server park: {blaise_server_park}, "
-                     f"questionnaire name: {questionnaire_name}, "
-                     f"file name: {file_name}")
+        logging.info(
+            f"Calling Ingest Service with "
+            f"server park: {blaise_server_park}, "
+            f"questionnaire name: {questionnaire_name}, "
+            f"file name: {file_name}"
+        )
         blaise_service.get_ingest(blaise_server_park, questionnaire_name, file_name)
         logging.info("Finished Running Cloud Function - 'ingest data'")
 
-        return f"Successfully ingested file from bucket", 200
+        return f"Successfully ingested {file_name} from bucket", 200
 
     except (RequestError, AttributeError, ValueError, ConfigError) as e:
         error_message = f"Error occurred during Ingest: {e}"
@@ -83,6 +86,7 @@ def process_zip_file(data):
         error_message = f"Error occurred during Ingest: {e}"
         logging.error(error_message)
         return error_message, 500
+
 
 # Testing
 process_zip_file()
