@@ -46,21 +46,27 @@ poetry run python -m pytest
 
 ### Running Locally
 
-Run the following command in a terminal
+Run the following commands in a terminal
 
+```shell
 gcloud config set project <project_id>
+```
+
+```shell
 gcloud compute start-iap-tunnel restapi-1 80 --local-host-port=localhost:8011
+```
 
-
+```shell
 export BLAISE_API_URL="localhost:8011"
 export BLAISE_SERVER_PARK="gusty"
+```
 
 Need to get files from poetry to requirements.txt by running
 ```shell
 poetry export -f requirements.txt --without-hashes > requirements.txt
 ```
 
-Then run
-```shell
-python main.py
+Then using python 3.9 the main.py file
+```
+main.py
 ```
