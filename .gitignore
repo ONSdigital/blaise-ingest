@@ -2,7 +2,6 @@
 .vscode
 .DS_Store
 .env
-/requirements.txt
 /venv/
 /app.yaml
 .pytest_cache

@@ -1,10 +1,9 @@
 import logging
 import os
 
-from google.cloud import storage
+from dotenv import load_dotenv
 
 import utils
-from dotenv import load_dotenv
 from appconfig.config import Config
 from services.blaise_service import BlaiseService
 from services.validation_service import ValidationService
@@ -35,20 +34,7 @@ def process_zip_file(data):
             print(f"File {file_name} is not a zip file, skipping.")
             return
 
-        print(f"Processing ZIP file: {file_name} from bucket {bucket_name}")
-
-        # Initialize the client
-        storage_client = storage.Client()
-
-        # Reference to the bucket
-        bucket = storage_client.get_bucket(bucket_name)
-
-        # Get the uploaded ZIP file
-        blob = bucket.blob(file_name)
-
-        # Debug: Print out the file's metadata
-        print(f"File {file_name} uploaded to {bucket_name}.")
-        print(f"Blob size: {blob.size} bytes")
+        logging.info(f"Processing ZIP file: {file_name} from bucket {bucket_name}")
 
         # Config Handler
         blaise_config = Config.from_env()
@@ -91,14 +77,9 @@ def process_zip_file(data):
 
 
 if os.path.isfile("./.env"):
-    print("Loading environment variables from dotenv file")
+    logging.info("Loading environment variables from dotenv file")
     load_dotenv()
 
-# Testing
+
 if __name__ == "__main__":
-    process_zip_file(
-        {
-            "bucket": "ons-blaise-v2-dev-rr3-ingest",
-            "name": "IPS2501A.zip"
-        }
-    )
+    process_zip_file({"bucket": "ons-blaise-v2-dev-rr3-ingest", "name": "IPS2501A.zip"})

@@ -54,3 +54,5 @@ gcloud compute start-iap-tunnel restapi-1 80 --local-host-port=localhost:8011
 
 export BLAISE_API_URL="localhost:8011"
 export BLAISE_SERVER_PARK="gusty"
+
+Run main.py
