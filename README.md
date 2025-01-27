@@ -55,4 +55,12 @@ gcloud compute start-iap-tunnel restapi-1 80 --local-host-port=localhost:8011
 export BLAISE_API_URL="localhost:8011"
 export BLAISE_SERVER_PARK="gusty"
 
-Run main.py
+Need to get files from poetry to requirements.txt by running
+```shell
+poetry export -f requirements.txt --without-hashes > requirements.txt
+```
+
+Then run
+```shell
+python main.py
+```
