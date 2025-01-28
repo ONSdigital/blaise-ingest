@@ -43,6 +43,10 @@ def process_zip_file(data, _context):
 
         questionnaire_name = utils.get_questionnaire_name(file_name)
 
+        if questionnaire_name is None:
+            print(f"Could not retrieve questionnaire name from {file_name}.")
+            return
+
         # Blaise Handler
         validation_service.validate_questionnaire_exists(
             questionnaire_name, blaise_config
