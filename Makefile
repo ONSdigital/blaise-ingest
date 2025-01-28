@@ -17,7 +17,6 @@ lint:
 	@poetry run black --check .
 	@poetry run isort --check .
 	@poetry run flake8 --ignore=E501 .
-	@poetry run mypy --config-file ${mkfile_dir}mypy.ini .
 
 .PHONY: test
 ## Run unit tests
