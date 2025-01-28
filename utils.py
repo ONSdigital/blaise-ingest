@@ -7,7 +7,7 @@ def log_event(event):
 
 
 def get_questionnaire_name(zip_filename):
-    match = re.search(r"(?i)^([a-zA-Z]+)(\d{4})([a-zA-Z]*)(?:edit)?\.zip", zip_filename)
+    match = re.search(r"(?i)^([a-zA-Z]+)(\d{4})([a-zA-Z]?).*\.zip", zip_filename)
     if match:
         survey, year_month, survey_version = match.groups()
         questionnaire_name = survey + year_month + survey_version
@@ -22,6 +22,3 @@ class InvalidFileExtension(Exception):
 
 class InvalidFileType(Exception):
     pass
-
-
-print(get_questionnaire_name("IPS2501A.Zip"))
