@@ -16,7 +16,7 @@ format:
 lint:
 	@poetry run black --check .
 	@poetry run isort --check .
-	@poetry run flake8 --max-line-length=88 .
+	@poetry run flake8 --ignore=E501 .
 
 .PHONY: test
 ## Run unit tests

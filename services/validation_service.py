@@ -60,8 +60,8 @@ class ValidationService:
         if not result:
             error_message = (
                 f"{self.request_json['questionnaire_name']} is not a valid "
-                + "questionnaire name format. "
-                + "Questionnaire name must start with 3 letters, followed by 4 numbers"
+                "questionnaire name format. "
+                "Questionnaire name must start with 3 letters, followed by 4 numbers"
             )
 
             logging.error(error_message)

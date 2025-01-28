@@ -1,5 +1,5 @@
-from unittest import mock
 from contextlib import contextmanager
+from unittest import mock
 
 import blaise_restapi
 import pytest
@@ -10,8 +10,6 @@ from services import validation_service
 from services.blaise_service import BlaiseService
 from services.validation_service import ValidationService
 from tests.helpers import get_default_config
-
-from main import process_zip_file
 from utilities.custom_exceptions import BlaiseError, ConfigError
 
 
@@ -37,9 +35,7 @@ class TestUtils:
             ("IPS2503_edit", None),
         ],
     )
-    def test_get_questionnaire_name(
-            self, file_name, questionnaire_name
-    ):
+    def test_get_questionnaire_name(self, file_name, questionnaire_name):
         # arrange
         result = utils.get_questionnaire_name(file_name)
 
@@ -156,7 +152,7 @@ class TestIngest:
 class TestValidateQuestionnaireExists:
     @mock.patch.object(blaise_restapi.Client, "questionnaire_exists_on_server_park")
     def test_validate_questionnaire_exists_does_not_raise_an_exception_when_questionnaire_exists(
-            self, mock_questionnaire_exists_on_server_park
+        self, mock_questionnaire_exists_on_server_park
     ):
         # arrange
         mock_questionnaire_exists_on_server_park.return_value = {
@@ -174,7 +170,7 @@ class TestValidateQuestionnaireExists:
 
     @mock.patch.object(blaise_restapi.Client, "questionnaire_exists_on_server_park")
     def test_validate_questionnaire_exists_logs_and_raises_a_blaise_error_exception_when_rest_api_fails(
-            self, mock_questionnaire_exists_on_server_park, caplog
+        self, mock_questionnaire_exists_on_server_park, caplog
     ):
         # arrange
         mock_questionnaire_exists_on_server_park.side_effect = Exception(
@@ -197,10 +193,10 @@ class TestValidateQuestionnaireExists:
         )
         assert err.value.args[0] == error_message
         assert (
-                   "root",
-                   40,
-                   error_message,
-               ) in caplog.record_tuples
+            "root",
+            40,
+            error_message,
+        ) in caplog.record_tuples
 
     def test_validate_config_does_not_raise_an_exception_when_given_valid_config(self):
         # arrange
@@ -214,24 +210,22 @@ class TestValidateQuestionnaireExists:
 
 class TestProcessZipFile:
 
-    @mock.patch.object(validation_service.ValidationService, "validate_questionnaire_exists")
-    def test_validation_questionnaire_exists(
-            self, mock_validate_questionnaire_exists
-    ):
+    @mock.patch.object(
+        validation_service.ValidationService, "validate_questionnaire_exists"
+    )
+    def test_validation_questionnaire_exists(self, mock_validate_questionnaire_exists):
         # arrange
         validation_service = ValidationService()
         questionnaire_name = "IPS2501A"
         config = Config(blaise_api_url="foo", blaise_server_park="bar")
 
         # act
-        validation_service.validate_questionnaire_exists(
-            questionnaire_name, config
-        )
+        validation_service.validate_questionnaire_exists(questionnaire_name, config)
 
         # assert
         assert mock_validate_questionnaire_exists.called_with(
-            questionnaire_name,
-            config)
+            questionnaire_name, config
+        )
 
 
 @contextmanager
