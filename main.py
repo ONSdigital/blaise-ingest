@@ -30,7 +30,7 @@ def process_zip_file(data, _context):
         file_name = file["name"]
 
         # Only trigger on .zip files
-        if not file_name.endswith(".zip"):
+        if not file_name.lower().endswith(".zip"):
             print(f"File {file_name} is not a zip file, skipping.")
             return
 
