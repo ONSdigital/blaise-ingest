@@ -22,6 +22,3 @@ class InvalidFileExtension(Exception):
 
 class InvalidFileType(Exception):
     pass
-
-
-print(get_questionnaire_name("LMS2101A_AA1.zip"))
