@@ -20,7 +20,7 @@ from utilities.logging import setup_logger
 setup_logger()
 
 
-def process_zip_file(data):
+def process_zip_file(data, _context):
     try:
         logging.info("Running Cloud Function - 'ingest data'")
         validation_service = ValidationService()
