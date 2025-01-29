@@ -1,10 +1,20 @@
 import logging
+import os
+
+from dotenv import load_dotenv
 
 import utils
 from appconfig.config import Config
 from services.blaise_service import BlaiseService
 from services.validation_service import ValidationService
-from utilities.custom_exceptions import BlaiseError, ConfigError, IngestError
+from utilities.custom_exceptions import (
+    BlaiseError,
+    ConfigError,
+    GuidError,
+    IngestError,
+    RequestError,
+    UsersError,
+)
 from utilities.logging import setup_logger
 
 setup_logger()
@@ -56,7 +66,7 @@ def process_zip_file(data, _context):
 
         return f"Successfully ingested {file_name} from bucket", 200
 
-    except (AttributeError, ValueError, ConfigError) as e:
+    except (RequestError, AttributeError, ValueError, ConfigError) as e:
         error_message = f"Error occurred during Ingest: {e}"
         logging.error(error_message)
         return error_message, 400
@@ -64,7 +74,18 @@ def process_zip_file(data, _context):
         error_message = f"Error occurred during Ingest: {e}"
         logging.error(error_message)
         return error_message, 404
-    except (IngestError, Exception) as e:
+    except (GuidError, UsersError, IngestError, Exception) as e:
         error_message = f"Error occurred during Ingest: {e}"
         logging.error(error_message)
         return error_message, 500
+
+
+if os.path.isfile("./.env"):
+    logging.info("Loading environment variables from dotenv file")
+    load_dotenv()
+
+
+if __name__ == "__main__":
+    process_zip_file(
+        {"bucket": "ons-blaise-v2-dev-rr3-ingest", "name": "IPS2501A.zip"}, None
+    )
