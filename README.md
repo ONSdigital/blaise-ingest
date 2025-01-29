@@ -1,4 +1,4 @@
-# blaise-ingest
+# Blaise Ingest
 
 Python cloud function that's triggered when a zip file is uploaded (object finalized) to the environments ingest bucket.
 
