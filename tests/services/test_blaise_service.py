@@ -5,8 +5,7 @@ import blaise_restapi
 import pytest
 
 import services
-
-# import utils
+import utils
 from appconfig.config import Config
 
 # from services import validation_service
@@ -26,108 +25,108 @@ def blaise_service(config) -> BlaiseService:
     return BlaiseService(config=config)
 
 
-# class TestUtils:
-#
-#     @pytest.mark.parametrize(
-#         "file_name, questionnaire_name",
-#         [
-#             ("IPS2501A.zip", "IPS2501A"),
-#             ("IPS2501A_AA1.zip", "IPS2501A_AA1"),
-#             ("IPS2502.zip", "IPS2502"),
-#             ("IPS2503_edit.zip", "IPS2503_edit"),
-#             ("IPS2503_edit", None),
-#         ],
-#     )
-#     def test_get_questionnaire_name(self, file_name, questionnaire_name):
-#         # arrange
-#         result = utils.get_questionnaire_name(file_name)
-#
-#         # assert
-#         assert result == questionnaire_name
+class TestUtils:
+
+    @pytest.mark.parametrize(
+        "file_name, questionnaire_name",
+        [
+            ("IPS2501A.zip", "IPS2501A"),
+            ("IPS2501A_AA1.zip", "IPS2501A_AA1"),
+            ("IPS2502.zip", "IPS2502"),
+            ("IPS2503_edit.zip", "IPS2503_edit"),
+            ("IPS2503_edit", None),
+        ],
+    )
+    def test_get_questionnaire_name(self, file_name, questionnaire_name):
+        # arrange
+        result = utils.get_questionnaire_name(file_name)
+
+        # assert
+        assert result == questionnaire_name
 
 
-# class TestValidateConfig:
-#
-#     @pytest.mark.parametrize(
-#         "blaise_api_url, blaise_server_park",
-#         [
-#             (None, None),
-#             ("", None),
-#             (None, ""),
-#             ("", ""),
-#         ],
-#     )
-#     def test_validate_config_logs_and_raises_validation_error_exception_when_both_config_values_are_missing(
-#         self, blaise_api_url, blaise_server_park, caplog
-#     ):
-#         # arrange
-#         mock_config = Config(
-#             blaise_api_url=blaise_api_url, blaise_server_park=blaise_server_park
-#         )
-#         validation_service = ValidationService()
-#
-#         # act
-#         with pytest.raises(ConfigError) as err:
-#             validation_service.validate_config(mock_config)
-#
-#         # assert
-#         error_message = "Missing required values from config: ['blaise_api_url', 'blaise_server_park']"
-#         assert err.value.args[0] == error_message
-#         assert (
-#             "root",
-#             40,
-#             error_message,
-#         ) in caplog.record_tuples
-#
-#     @pytest.mark.parametrize(
-#         "blaise_api_url",
-#         [None, ""],
-#     )
-#     def test_validate_config_logs_and_raises_validation_error_exception_when_blaise_api_url_is_missing(
-#         self, blaise_api_url, caplog
-#     ):
-#         # arrange
-#         mock_config = Config(blaise_api_url=blaise_api_url, blaise_server_park="bar")
-#         validation_service = ValidationService()
-#
-#         # act
-#         with pytest.raises(ConfigError) as err:
-#             validation_service.validate_config(mock_config)
-#
-#         # assert
-#         error_message = "Missing required values from config: ['blaise_api_url']"
-#         assert err.value.args[0] == error_message
-#         assert (
-#             "root",
-#             40,
-#             error_message,
-#         ) in caplog.record_tuples
-#
-#     @pytest.mark.parametrize(
-#         "blaise_server_park",
-#         [None, ""],
-#     )
-#     def test_validate_config_logs_and_raises_validation_error_exception_when_blaise_server_park_is_missing(
-#         self, blaise_server_park, caplog
-#     ):
-#         # arrange
-#         mock_config = Config(
-#             blaise_api_url="foo", blaise_server_park=blaise_server_park
-#         )
-#         validation_service = ValidationService()
-#
-#         # act
-#         with pytest.raises(ConfigError) as err:
-#             validation_service.validate_config(mock_config)
-#
-#         # assert
-#         error_message = "Missing required values from config: ['blaise_server_park']"
-#         assert err.value.args[0] == error_message
-#         assert (
-#             "root",
-#             40,
-#             error_message,
-#         ) in caplog.record_tuples
+class TestValidateConfig:
+
+    @pytest.mark.parametrize(
+        "blaise_api_url, blaise_server_park",
+        [
+            (None, None),
+            ("", None),
+            (None, ""),
+            ("", ""),
+        ],
+    )
+    def test_validate_config_logs_and_raises_validation_error_exception_when_both_config_values_are_missing(
+        self, blaise_api_url, blaise_server_park, caplog
+    ):
+        # arrange
+        mock_config = Config(
+            blaise_api_url=blaise_api_url, blaise_server_park=blaise_server_park
+        )
+        validation_service = ValidationService()
+
+        # act
+        with pytest.raises(ConfigError) as err:
+            validation_service.validate_config(mock_config)
+
+        # assert
+        error_message = "Missing required values from config: ['blaise_api_url', 'blaise_server_park']"
+        assert err.value.args[0] == error_message
+        assert (
+            "root",
+            40,
+            error_message,
+        ) in caplog.record_tuples
+
+    @pytest.mark.parametrize(
+        "blaise_api_url",
+        [None, ""],
+    )
+    def test_validate_config_logs_and_raises_validation_error_exception_when_blaise_api_url_is_missing(
+        self, blaise_api_url, caplog
+    ):
+        # arrange
+        mock_config = Config(blaise_api_url=blaise_api_url, blaise_server_park="bar")
+        validation_service = ValidationService()
+
+        # act
+        with pytest.raises(ConfigError) as err:
+            validation_service.validate_config(mock_config)
+
+        # assert
+        error_message = "Missing required values from config: ['blaise_api_url']"
+        assert err.value.args[0] == error_message
+        assert (
+            "root",
+            40,
+            error_message,
+        ) in caplog.record_tuples
+
+    @pytest.mark.parametrize(
+        "blaise_server_park",
+        [None, ""],
+    )
+    def test_validate_config_logs_and_raises_validation_error_exception_when_blaise_server_park_is_missing(
+        self, blaise_server_park, caplog
+    ):
+        # arrange
+        mock_config = Config(
+            blaise_api_url="foo", blaise_server_park=blaise_server_park
+        )
+        validation_service = ValidationService()
+
+        # act
+        with pytest.raises(ConfigError) as err:
+            validation_service.validate_config(mock_config)
+
+        # assert
+        error_message = "Missing required values from config: ['blaise_server_park']"
+        assert err.value.args[0] == error_message
+        assert (
+            "root",
+            40,
+            error_message,
+        ) in caplog.record_tuples
 
 
 class TestIngest:
