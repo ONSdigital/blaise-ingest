@@ -86,4 +86,6 @@ if os.path.isfile("./.env"):
 
 
 if __name__ == "__main__":
-    process_zip_file({"bucket": "ons-blaise-v2-dev-rr3-ingest", "name": "IPS2501A.zip"})
+    process_zip_file(
+        {"bucket": "ons-blaise-v2-dev-rr3-ingest", "name": "IPS2501A.zip"}, None
+    )
