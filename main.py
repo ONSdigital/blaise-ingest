@@ -27,7 +27,11 @@ def process_zip_file(data, _context):
 
         file = data
         bucket_name = file["bucket"]
-        file_name = file["name"]
+        file_path = file["name"]
+        if "/" in file["name"]:
+            file_name = file["name"].split("/")[1]
+        else:
+            file_name = file["name"]
 
         # Only trigger on .zip files
         if not file_name.lower().endswith(".zip"):
@@ -59,9 +63,9 @@ def process_zip_file(data, _context):
             f"Calling Ingest Service with "
             f"server park: {blaise_server_park}, "
             f"questionnaire name: {questionnaire_name}, "
-            f"file name: {file_name}"
+            f"file name: {file_path}"
         )
-        blaise_service.get_ingest(blaise_server_park, questionnaire_name, file_name)
+        blaise_service.get_ingest(blaise_server_park, questionnaire_name, file_path)
         logging.info("Finished Running Cloud Function - 'ingest data'")
 
         return f"Successfully ingested {file_name} from bucket", 200
