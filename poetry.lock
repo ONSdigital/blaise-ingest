@@ -61,7 +61,7 @@ requests = "^2.26.0"
 [package.source]
 type = "git"
 url = "https://github.com/ONSdigital/blaise-api-python-client"
-reference = "main"
+reference = "v1.0.1"
 resolved_reference = "b66777bd0be8f562c7e519e16808fd4e9fadc6d2"
 
 [[package]]
@@ -1398,4 +1398,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "eea7a72466c68d1ef0a15bac30c7038d660dde3b157ce90578ab3ea75abc0b10"
+content-hash = "a31619b5e74476e05b956e4a44df9e770153ddbff1413233c4366869eb22adb3"
