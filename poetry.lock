@@ -61,8 +61,8 @@ requests = "^2.26.0"
 [package.source]
 type = "git"
 url = "https://github.com/ONSdigital/blaise-api-python-client"
-reference = "BLAIS5-4597"
-resolved_reference = "c2ae4ef1e0afacb42cbf6ac7b66674e3032b44c9"
+reference = "v1.0.0"
+resolved_reference = "d374445f9f837b5e34f0c3d540572247ac388190"
 
 [[package]]
 name = "blinker"
@@ -1519,4 +1519,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "b2eb849a83575ccc165b040956c4cc02d7a71906138a146a1fa98c10ac792a2e"
+content-hash = "36ecdb13c7b1aadcdff887522a153fa48360ab9cd77f2879628118a800dc49fb"
