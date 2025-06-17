@@ -58,6 +58,7 @@ def process_zip_file(data, _context):
 
         if not questionnaire_exists:
             error_message = f"{questionnaire_name} does not exist in {blaise_config.blaise_server_park} server park"
+            logging.error(error_message)
             return error_message, 404
 
         # Ingest Handler
