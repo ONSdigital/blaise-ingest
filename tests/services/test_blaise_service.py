@@ -35,6 +35,7 @@ class TestUtils:
             ("IPS2502.zip", "IPS2502"),
             ("IPS2503_edit.zip", "IPS2503_edit"),
             ("IPS2503_edit", None),
+            ("IPS2501A_AA1.Zip", "IPS2501A_AA1"),
         ],
     )
     def test_get_questionnaire_name(self, file_name, questionnaire_name):
