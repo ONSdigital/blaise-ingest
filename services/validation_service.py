@@ -25,12 +25,12 @@ class ValidationService:
             raise ConfigError(error_message)
 
     @staticmethod
-    def validate_questionnaire_exists(questionnaire_name: str, config: Config):
+    def validate_questionnaire_exists(questionnaire_name: str, config: Config) -> bool:
         server_park = config.blaise_server_park
         restapi_client = blaise_restapi.Client(f"http://{config.blaise_api_url}")
 
         try:
-            restapi_client.questionnaire_exists_on_server_park(
+            return restapi_client.questionnaire_exists_on_server_park(
                 server_park, questionnaire_name
             )
         except Exception as e:

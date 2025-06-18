@@ -7,8 +7,6 @@ import pytest
 import services
 import utils
 from appconfig.config import Config
-
-# from services import validation_service
 from services.blaise_service import BlaiseService
 from services.validation_service import ValidationService
 from tests.helpers import get_default_config
@@ -35,6 +33,7 @@ class TestUtils:
             ("IPS2502.zip", "IPS2502"),
             ("IPS2503_edit.zip", "IPS2503_edit"),
             ("IPS2503_edit", None),
+            ("IPS2501A_AA1.Zip", "IPS2501A_AA1"),
         ],
     )
     def test_get_questionnaire_name(self, file_name, questionnaire_name):
@@ -228,6 +227,48 @@ class TestProcessZipFile:
         assert mock_validate_questionnaire_exists.called_with(
             questionnaire_name, config
         )
+
+    @mock.patch.object(blaise_restapi.Client, "questionnaire_exists_on_server_park")
+    def test_validate_questionnaire_exists(
+        self, mock_questionnaire_exists_on_server_park, caplog
+    ):
+        # Arrange
+        validation_service = ValidationService()
+        questionnaire_name = "IPS2501A"
+        config = Config(blaise_api_url="foo", blaise_server_park="bar")
+        mock_questionnaire_exists_on_server_park.return_value = True
+
+        # Act
+        result = validation_service.validate_questionnaire_exists(
+            questionnaire_name, config
+        )
+
+        # Assert mock was called
+        assert mock_questionnaire_exists_on_server_park.called_with(
+            questionnaire_name, config
+        )
+        assert result is True
+
+    @mock.patch.object(blaise_restapi.Client, "questionnaire_exists_on_server_park")
+    def test_validate_questionnaire_does_not_exist(
+        self, mock_questionnaire_exists_on_server_park, caplog
+    ):
+        # Arrange
+        validation_service = ValidationService()
+        questionnaire_name = "silly_name"
+        config = Config(blaise_api_url="foo", blaise_server_park="bar")
+        mock_questionnaire_exists_on_server_park.return_value = False
+
+        # Act
+        result = validation_service.validate_questionnaire_exists(
+            questionnaire_name, config
+        )
+
+        # Assert mock was called
+        assert mock_questionnaire_exists_on_server_park.called_with(
+            questionnaire_name, config
+        )
+        assert result is False
 
 
 @contextmanager
