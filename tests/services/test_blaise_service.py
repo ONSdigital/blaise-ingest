@@ -233,9 +233,6 @@ class TestProcessZipFile:
         self, mock_questionnaire_exists_on_server_park, caplog
     ):
         # Arrange
-        mock_questionnaire_exists_on_server_park.return_value = {
-            "questionnaire_name": "IPS2403a"
-        }
         validation_service = ValidationService()
         questionnaire_name = "IPS2501A"
         config = Config(blaise_api_url="foo", blaise_server_park="bar")
@@ -257,9 +254,6 @@ class TestProcessZipFile:
         self, mock_questionnaire_exists_on_server_park, caplog
     ):
         # Arrange
-        mock_questionnaire_exists_on_server_park.return_value = {
-            "questionnaire_name": "silly_name"
-        }
         validation_service = ValidationService()
         questionnaire_name = "silly_name"
         config = Config(blaise_api_url="foo", blaise_server_park="bar")
