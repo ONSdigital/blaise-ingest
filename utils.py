@@ -7,7 +7,7 @@ def log_event(event):
 
 
 def get_questionnaire_name(zip_filename):
-    match = re.search(r"^(.*?)(?=\.zip$)", zip_filename)
+    match = re.search(r"^(.*?)(?=\.zip$)", zip_filename, re.IGNORECASE)
     if match:
         # Only get the first group (everything before ".zip")
         questionnaire_name = match.group(1)
