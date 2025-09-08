@@ -8,7 +8,6 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.13"
 google-cloud-storage = "^3.3.1"
-protobuf = "^6.31.1"
 grpcio = "^1.74.0"
 black = "^25.1.0"
 isort = "^6.0.1"
@@ -21,8 +20,6 @@ python-dotenv = "^1.1.1"
 pytest-cov = "^6.3.0"
 blaise-restapi = {git = "https://github.com/ONSdigital/blaise-api-python-client", rev = "v1.0.2"}
 google-cloud-logging = "^3.12.1"
-jinja2 = "^3.1.6"
-urllib3 = "^2.5.0"
 
 [tool.isort]
 profile = "black"
