@@ -224,7 +224,7 @@ class TestProcessZipFile:
         validation_service.validate_questionnaire_exists(questionnaire_name, config)
 
         # assert
-        assert mock_validate_questionnaire_exists.called_with(
+        mock_validate_questionnaire_exists.assert_called_with(
             questionnaire_name, config
         )
 
@@ -244,8 +244,9 @@ class TestProcessZipFile:
         )
 
         # Assert mock was called
-        assert mock_questionnaire_exists_on_server_park.called_with(
-            questionnaire_name, config
+        mock_questionnaire_exists_on_server_park.assert_called_with(
+            config.blaise_server_park,
+            questionnaire_name,
         )
         assert result is True
 
@@ -265,8 +266,9 @@ class TestProcessZipFile:
         )
 
         # Assert mock was called
-        assert mock_questionnaire_exists_on_server_park.called_with(
-            questionnaire_name, config
+        mock_questionnaire_exists_on_server_park.assert_called_with(
+            config.blaise_server_park,
+            questionnaire_name,
         )
         assert result is False
 
