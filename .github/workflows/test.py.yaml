@@ -74,4 +74,4 @@ jobs:
           pip install poetry
           poetry install
       - name: Run mypy
-        run: poetry run mypy blaise_ingest
+        run: poetry run mypy .
