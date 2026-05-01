@@ -20,6 +20,7 @@ python-dotenv = "^1.1.1"
 pytest-cov = "^6.3.0"
 blaise-restapi = {git = "https://github.com/ONSdigital/blaise-api-python-client", rev = "v1.0.2"}
 google-cloud-logging = "^3.12.1"
+pygments = ">=2.20"
 
 [tool.isort]
 profile = "black"
